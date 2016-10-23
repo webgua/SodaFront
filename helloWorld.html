@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="initial-scale=1.0 user-scalable=no" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Hello,Map</title>
+	<style type="text/css">  
+		html{height:100%}  
+		body{height:100%;margin:0px;padding:0px}  
+		#container{height:100%}  
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ComGW1M9yzupXdYGVIDRhujI9eBNmXB7"></script>
+	<script type="text/javascript" src="./javascripts/CityList_min.js"></script>
+</head>
+<body>
+	<div id="container"></div>
+	<script type="text/javascript">
+		// create a map instance
+		var map = new BMap.Map("container");
+		//create point coordinate
+		var point = new BMap.Point(121.29,31.14);
+		//initial the map and set the center coordinate and map class
+		map.centerAndZoom(point,15);
+		map.addControl(new BMap.NavigationControl());
+		map.addControl(new BMap.ScaleControl());	
+		map.addControl(new BMap.OverviewMapControl());
+		map.addControl(new BMap.MapTypeControl());
+
+		map.enableScrollWheelZoom(true);
+
+		// var myCityListObject = new BMapLib.CityList({container : "container",map:map});
+		// myCityListObject.getBusiness('上海市',function(json){
+		// 	console.log("商圈");
+		// 	console.log(json);
+		// })
+	</script>
+</body>
+</html>

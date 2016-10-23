@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>上海市商圈人流情况热力图</title>
+	<link rel="stylesheet" href="./stylesheets/style_main.css">
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ComGW1M9yzupXdYGVIDRhujI9eBNmXB7"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
+	<script type="text/javascript" src='./javascripts/jquery.min.js'></script>
+	<script type="text/javascript" src='./javascripts/infobox.js'></script>
+</head>
+<body>
+	<div class="container">
+		<header>
+			<div class="title">
+				<h1>上海市各大商圈人流量预警系统</h1>
+				<h3> &nbsp The EWS of Crowds in Bussiness Areas of ShangHai</h3>
+			</div>
+		</header>
+		<div class="main_container">
+			<div class="view_left">
+				<nav>
+					<ul>
+						<li class="li_1"><a href="#" onclick="nav_click1()"><h2>实时人流监测</h2><h5>Real-time Crowds Monitor</h5></a></li>
+						<li class="li_2"><a href="#" onclick="nav_click2()"><h2>半小时人流预测</h2><h5>The Half-Hour Forecast</h5></a></li>
+						<li class="li_3"><a href="#" onclick="nav_click3()"><h2>人群增量数据</h2><h5>The Increment of Crowds</h5></a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="fengxi1"></div>
+			<div class="map_container" id="map1"></div>
+			<div class="map_container" id="map2"></div>
+			<div class="map_container" id="map3"></div>
+			<div class="fengxi2"></div>
+			<div class="view_right">
+				<div class="s_title">
+					<h2>实时商圈信息</h2>
+				</div>
+				<section id="bcInfomation">
+				</section>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="footer">
+			<div id="time_container">
+				<h3 class="clock"></h3>
+				<h3 class="date"></h3>
+			</div>
+			<div class="information">
+				<h3>阿尔戈数据@同济大学</h3>
+				<h3>联系我们：XXXX@XXX.com</h3>
+			</div>
+		</div>
+
+	</div>
+	<script src="./javascripts/map_operator.js"></script>
+
+	<script type="text/javascript">
+		window.onload = function(){
+
+			var date = new Date();
+			var weekString = "";
+			switch(date.getDay()){
+				case 0: weekString +="星期日";break;
+				case 1: weekString +="星期一";break;
+				case 2: weekString +="星期二";break;
+				case 3: weekString +="星期三";break;
+				case 4: weekString +="星期四";break;
+				case 5: weekString +="星期五";break;
+				case 6: weekString +="星期六";break;
+			}
+			$('#time_container .clock').html(date.getHours().toString()+":"+date.getMinutes().toString());
+			$('#time_container .date').html(date.getUTCFullYear().toString()+'年'+(date.getUTCMonth()+1).toString()+'月'+date.getDate().toString()+'日'+"  "+weekString);
+
+			$.ajax({
+				type:'GET',
+				url:'http://127.0.0.1:3000/Soda/GetDataServlet',
+				error:function(){
+					alert('error!');
+				},
+				success:function(data){
+					handle_sodaData(data);
+				}
+			})
+		}
+	</script>
+	<style type="text/css">
+		.BMap_pop .BMap_top{
+        	background-color: rgba(0,0,0,0.5);
+    	}
+   		.BMap_pop .BMap_center{
+        	background-color: rgba(0,0,0,0.5);
+    	}  
+  		.BMap_pop .BMap_bottom{
+        	background-color: rgba(0,0,255,0.5);
+    	}
+    	.BMap_pop div:nth-child(1){  
+        	border-radius:7px 0 0 0;  
+    	} 
+ 		.BMap_pop div:nth-child(1) div{  
+        	border-radius:7px;  
+    	}
+    	.BMap_pop div:nth-child(3){  
+        	border-radius:0 7px 0 0;  
+    	}  
+ 		.BMap_pop div:nth-child(3) div{  
+        	border-radius:7px;  
+    	}
+    	.BMap_pop div:nth-child(5){  
+        	border-radius:0 0 0 7px;  
+    	}  
+    	.BMap_pop div:nth-child(5) div{  
+        	border-radius:7px;  
+    	}  
+    	.BMap_pop div:nth-child(7){  
+        	border-radius:0 0 7px 0 ;  
+    	}  
+    	.BMap_pop div:nth-child div(7){  
+        	border-radius:7px ;  
+    	}
+	</style>
+</body>
+</html>

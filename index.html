@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>上海市商圈人流情况热力图</title>
+	<link rel="stylesheet" href="./stylesheets/style.css">
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ComGW1M9yzupXdYGVIDRhujI9eBNmXB7"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
+	<script type="text/javascript" src='./javascripts/jquery.min.js'></script>
+</head>
+<body>
+	<header>
+		<h1>上海市各大商圈人流量预警系统	</h1>
+	</header>
+	<div id="realtime-container">
+		<div class="text-container">
+			<h1>实时人流数据</h1>
+		</div>
+		<div class="map map-right" id="map1">
+			<div class="time_container"></div>
+		</div>
+	</div>
+	<div id="incremental-container">
+		<div class="text-container">
+			<h1>人流增量数据</h1>
+		</div>
+		<div class="map map-right" id="map2">
+			<div class="time_container"></div>
+		</div>
+	</div>
+	<div id="predict-container">
+		<div class="text-container container-right">
+			<h1>预计人流数据</h1>
+		</div>
+		<div class="map map-left" id="map3">
+			<div class="time_container"></div>
+		</div>
+	</div>
+	<div id="information-container"></div>
+
+	<script src="./javascripts/map_operator.js"></script>
+
+	<script type="text/javascript">
+		window.onload = function(){
+			$.ajax({
+				type:'GET',
+				url:'http://127.0.0.1:3000/Soda/GetDataServlet',
+				error:function(){
+					alert('error!');
+				},
+				success:function(data){
+					console.log(data)
+				}
+			})
+		}
+	</script>
+</body>
+</html>
