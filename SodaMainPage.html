@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="refresh" content="300">
+	<meta http-equiv="refresh" content="600">
 	<title>上海市各大商圈人流量预警系统</title>
 	<link rel="stylesheet" href="./stylesheets/style_main.css">
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ComGW1M9yzupXdYGVIDRhujI9eBNmXB7"></script>
@@ -22,6 +22,11 @@
 		</header>
 		<div class="main_container">
 			<div class="view_left">
+				<div id="time_container">
+					<h3 class="clock"></h3>
+					<h3 class="date"></h3>
+				</div>
+				<div id="tp-weather-widget"></div>
 				<nav>
 					<ul>
 						<li class="li_1"><a href="#" onclick="nav_click1()"><h2>实时人流监测</h2><h5>Real-time Crowds Monitor</h5></a></li>
@@ -48,10 +53,6 @@
 		</div>
 		<div class="clear"></div>
 		<div class="footer">
-			<div id="time_container">
-				<h3 class="clock"></h3>
-				<h3 class="date"></h3>
-			</div>
 			<div class="information">
 				<h3>阿尔戈数据@同济大学</h3>
 				<h3>联系我们：XXXX@XXX.com</h3>
@@ -122,6 +123,24 @@
 			});
 		}
 	</script>
+	<script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.thinkpage.cn/widget/chameleon.js"))</script>
+	<script>tpwidget("init", {
+	    "flavor": "slim",
+	    "location": "WTW37HNSSJ68",
+	    "geolocation": "enabled",
+	    "language": "zh-chs",
+	    "unit": "c",
+	    "theme": "chameleon",
+	    "container": "tp-weather-widget",
+	    "bubble": "enabled",
+	    "alarmType": "badge",
+	    "uid": "UD0A19FAA8",
+	    "hash": "ed217eb2ced819f4257c75fea8a89168"
+		});
+		tpwidget("show");
+		// $('.tpwthwidt .title_3ymFLpT').css("color","#fff");
+		// $('.tpwthwidt .text_3pc97PY').css("color","#fff");
+	</script>
 	<style type="text/css">
 		.BMap_pop .BMap_top{
         	background-color: rgba(255,255,255,0.8);
@@ -137,7 +156,7 @@
     	} 
  		.BMap_pop div:nth-child(1) div{  
         	border-radius:7px;  
-    	}
+    	}s
     	.BMap_pop div:nth-child(3){  
         	border-radius:0 7px 0 0;  
     	}  

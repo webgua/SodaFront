@@ -48,6 +48,10 @@ body{
 	height: 100%;
 	float: left;
 	background-color: #0b4a75;
+	color: #fff;
+}
+.container .main_container .view_left nav{
+	margin-top: 20px;
 }
 .container .main_container .view_left nav ul li a{
 	color: #fff;
@@ -151,4 +155,6 @@ ul li{
 
  
       
-
+#tp-weather-widget {
+	color: #fff;
+}

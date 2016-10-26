@@ -343,7 +343,7 @@ function nav_click4(){
      $('#map3').css('display','none');
      function toHalfHour(miniute){
           if(miniute>=30 && miniute<60){
-               return 30;
+               return 3;
           }else
           return 0;
      }
@@ -374,7 +374,7 @@ option = {
     },
     yAxis: {
         type: 'value',
-        boundaryGap: [0, '100%']
+        boundaryGap: [0, '10%']
     },
     
     series: [
@@ -453,7 +453,7 @@ option = {
 };
      for (var i = 1; i < 48; i++) {   //24小时一共48个点
          var now = new Date(base);
-         dateInPic.push([now.getFullYear(), now.getMonth(), now.getDate(),now.get].join('/')+' '+[now.getHours(),now.getMinutes()].join(':'));
+         dateInPic.push([now.getFullYear(), now.getMonth(), now.getDate(),now.get].join('/')+' '+[now.getHours(),now.getMinutes()+'0'].join(':'));
          // dateInPic.push(base);
          // data_mall1.push(Math.round((Math.random() - 0.5) * 20 + data_mall1[i - 1]));  
          // data_mall2.push(Math.round((Math.random() - 0.5) * 20 + data_mall2[i - 1]));
