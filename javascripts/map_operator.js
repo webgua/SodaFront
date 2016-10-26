@@ -580,7 +580,7 @@ function handle_sodaScore(data){
                     var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
                     marker2.addEventListener("mouseover",function(){
                          var content = "<div style='line-height:1.8em;font-size:12px;color:#000;'>"+"<span>当前拥挤指数:"+currentscore[i]+"</span><br>"
-                    +"<span>当前拥挤等级:"+getRank(currentscore[i])+"</span><br>"+"<span>预测拥挤指数:"+predictscore[i]+"</span><br>"
+                    +"<span>当前拥挤等级:"+getRank(currentscore[i])+"</span><br>"
                     +"<span>预测拥挤指数:"+predictscore[i]+"</span><br>"
                     +"<span>人流变化趋势:"+trendCrowed(currentscore[i],predictscore[i])+"</span><br>"+"</div>";
 

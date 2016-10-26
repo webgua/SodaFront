@@ -124,7 +124,9 @@ ul li{
 }
 
 .footer{
-	margin:-30px auto 0 auto;
+	position: absolute;
+	bottom: 10px;
+	left: 40%;
 	width: 20%;
 	color: #fff;
 	text-align: center;
