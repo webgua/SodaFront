@@ -18,10 +18,10 @@ var points1 =[
 {'lng':121.526730973702,'lat':31.3137428398646,'count':40,'name':"五角场4"},
 
 {'lng':121.483086477578,'lat':31.2307894219967,'count':31,'name':"淮海路"},
-{'lng':121.478197916118,'lat':31.2273984883647,'count':25,'name':"淮海路1"},
-{'lng':121.478197916118,'lat':31.2335055176991,'count':25,'name':"淮海路2"},
-{'lng':121.487766220992,'lat':31.2273984883647,'count':25,'name':"淮海路3"},
-{'lng':121.487766220992,'lat':31.2335055176991,'count':25,'name':"淮海路4"},
+{'lng':121.480197916118,'lat':31.2293984883647,'count':25,'name':"淮海路1"},
+{'lng':121.480197916118,'lat':31.2315055176991,'count':25,'name':"淮海路2"},
+{'lng':121.485766220992,'lat':31.2293984883647,'count':25,'name':"淮海路3"},
+{'lng':121.485766220992,'lat':31.2315055176991,'count':25,'name':"淮海路4"},
 
 {'lng':121.464640707084,'lat':31.2221177445104,'count':12,'name':"音乐学院"},
 {'lng':121.462056435591,'lat':31.2202245895834,'count':10,'name':"音乐学院1"},
@@ -122,6 +122,16 @@ var points1 =[
 {'lng':121.460786393042,'lat':31.2855162835048,'count':9,'name':"大宁4"}
 ]
 
+var mapHeatMax = 50;
+var BCnumber = 20;
+var preBCnumber = 3;
+var centerPointLng = 121.479;
+var centerPointLat = 31.249;
+var hasGetData = false;
+
+var data_mall1 = new Array(48);  //第1个商圈的数据
+var data_mall2 = new Array(48);  //第2个商圈的数据
+var data_mall3 = new Array(48);  //第3个商圈的数据
 
 var styleJson = [
           {
@@ -244,6 +254,9 @@ var styleJson = [
                     }
           }
 ]
+
+
+// map initialization
 var map1 = new BMap.Map("map1",{enableMapClick:false});
 var point1 = new BMap.Point(121.479,31.249);
 map1.centerAndZoom(point1,13);
@@ -251,46 +264,14 @@ map1.disableScrollWheelZoom();
 map1.disableDoubleClickZoom();
 //设置地图no可以拖拽
 map1.enableDragging();
-var heatmapOverlay1 = new BMapLib.HeatmapOverlay({"radius":35});
-map1.addOverlay(heatmapOverlay1);
-heatmapOverlay1.setDataSet({data:points1,max:50});
-map1.setMapStyle({style:'googlelite'});
-// var marker = new BMap.Marker(new BMap.Point(121.479,31.239));
-// marker.addEventListener("mouseover",attribute);
-// map1.addOverlay(marker);
-
-//添加mouseover事件
-var opts = new Array(20);
-// var infoWindow = new Array(20);
-for(var i=0;i<20;i++){
-     opts[i]={title:'<span style="font-size:14px;color:#fff">'+points1[i*5]['name']+'</span>'};
-     // infoWindow[i] = new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'>123</div>",opts[i]);
-}
-
-for(var i=0;i<20;i++){
-     (function(i){
-          var pt = new BMap.Point(points1[i*5]['lng'], points1[i*5]['lat']);
-          var myIcon = new BMap.Icon("../images/marker.png",new BMap.Size(6,6));
-          var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
-          marker2.addEventListener("mouseover",function(){
-               var infoWindow = new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;color:#fff;'>"+"<h5>metro_in:"+sodaData1[i]['metro']['in']+"</h5>"+"</div>",opts[i]);
-               this.openInfoWindow(infoWindow);
-               $('.BMap_pop div:nth-child(1) div').css('background-color','rgba(0,0,0,0.5');
-               $('.BMap_pop div:nth-child(3) div').css('background-color','rgba(0,0,0,0.5');
-               $('.BMap_pop div:nth-child(5) div').css('background-color','rgba(0,0,0,0.5');
-               $('.BMap_pop div:nth-child(7) div').css('background-color','rgba(0,0,0,0.5');
-               $('.BMap_pop div:nth-child(8) img').remove();
-          });
-          map1.addOverlay(marker2);
-     })(i);              // 将标注添加到地图中
-}
 map1.setMapStyle({styleJson:styleJson});
-
-
-function attribute(marker){
-	var p = marker.getPosition();  //获取marker的位置
-	alert("marker的位置是" + p.lng + "," + p.lat);    
-}
+$('#map2').css('display','block');
+var map2 = new BMap.Map("map2",{enableMapClick:false});
+var point2 = new BMap.Point(121.479,31.249);
+map2.centerAndZoom(point2,13);
+map2.disableScrollWheelZoom();
+map2.enableDragging();
+$('#map2').css('display','none');
 
 var nav1_first = false;
 var nav2_first = true;
@@ -300,26 +281,31 @@ function nav_click1(){
      $('.li_1').css('background-color','#0E5E94');
      $('.li_2').css('background-color','#0b4a75');
      $('.li_3').css('background-color','#0b4a75');
+     $('.li_4').css('background-color','#0b4a75');
      $('#map2').css('display','none');
      $('#map3').css('display','none');
+     $('#map4').css('display','none');
      $('#map1').css('display','block');
 }
 function nav_click2(){
      $('.li_2').css('background-color','#0E5E94');
      $('.li_1').css('background-color','#0b4a75');
      $('.li_3').css('background-color','#0b4a75');
+     $('.li_4').css('background-color','#0b4a75');
      $('#map1').css('display','none');
      $('#map3').css('display','none');
+     $('#map4').css('display','none');
      $('#map2').css('display','block');
-     if(nav2_first){
-          var map2 = new BMap.Map("map2");
-          var point2 = new BMap.Point(121.479,31.249);
-          map2.centerAndZoom(point2,13);
-          map2.disableScrollWheelZoom();
-          map2.disableDragging();
-          var heatmapOverlay2 = new BMapLib.HeatmapOverlay({"radius":35});
+     if(hasGetData){
+          console.log(map2.getOverlays());
+          var heatmapOverlay2 = new BMapLib.HeatmapOverlay({"radius":35,"gradient":{
+               '0.05': 'rgb(255,255,255)',
+               '0.2': 'rgb(0,255,0)', 
+               '0.5': 'rgb(255,255,00)',
+               '0.7': 'rgb(255,0,0)'
+          }});
           map2.addOverlay(heatmapOverlay2);
-          heatmapOverlay2.setDataSet({data:points1,max:50});
+          heatmapOverlay2.setDataSet({data:points1,max:mapHeatMax});
           map2.setMapStyle({styleJson:styleJson});
           nav2_first = false;
      }
@@ -328,15 +314,17 @@ function nav_click3(){
      $('.li_3').css('background-color','#0E5E94');
      $('.li_1').css('background-color','#0b4a75');
      $('.li_2').css('background-color','#0b4a75');
+     $('.li_4').css('background-color','#0b4a75');
      $('#map3').css('display','block');
      $('#map1').css('display','none');
      $('#map2').css('display','none');
+     $('#map4').css('display','none');
      if(nav3_first){
-          var map3 = new BMap.Map("map3");
+          map3 = new BMap.Map("map3",{enableMapClick:false});
           var point3 = new BMap.Point(121.479,31.249);
           map3.centerAndZoom(point3,13);
           map3.disableScrollWheelZoom();
-          map3.disableDragging();
+          map3.enableDragging();
           var heatmapOverlay3 = new BMapLib.HeatmapOverlay({"radius":35});
           map3.addOverlay(heatmapOverlay3);
           heatmapOverlay3.setDataSet({data:points1,max:50});
@@ -344,23 +332,274 @@ function nav_click3(){
           nav3_first = false;
      }
 }
+function nav_click4(){
+     $('.li_4').css('background-color','#0E5E94');
+     $('.li_1').css('background-color','#0b4a75');
+     $('.li_2').css('background-color','#0b4a75');
+     $('.li_3').css('background-color','#0b4a75');
+     $('#map4').css('display','block');
+     $('#map1').css('display','none');
+     $('#map2').css('display','none');
+     $('#map3').css('display','none');
+     function toHalfHour(miniute){
+          if(miniute>=30 && miniute<60){
+               return 30;
+          }else
+          return 0;
+     }
+     var myChart = echarts.init(document.getElementById('map4'));
+     var base = +new Date(2016, 3, date.getDate(), date.getHours(), toHalfHour(date.getMinutes()), 0);  //2016-03-02 00:00:00
+     var oneStep= 1800 * 1000;  //半小时
+     var dateInPic = [];
+
+option = {
+    tooltip: {
+        trigger: 'axis',
+        position: function (pt) {
+            return [pt[0], '10%'];
+        }
+    },
+    title: {
+        left: 'center',
+        text: '商圈拥挤指数',
+    },
+    legend: {
+        top: 'bottom',
+        data:['意向']
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: dateInPic
+    },
+    yAxis: {
+        type: 'value',
+        boundaryGap: [0, '100%']
+    },
+    
+    series: [
+        {
+            name:'人民广场-南京东路',
+            type:'line',
+            smooth:true,
+            symbol: 'none',
+            sampling: 'average',
+            itemStyle: {
+                normal: {
+                    color: 'rgb(138,43,226)'
+                }
+            },
+            areaStyle: {
+                normal: {color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(147,112,219)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(138,43,226)'
+                    }])
+              }
+            },
+            data: data_mall1
+        },
+        {
+            name:'徐家汇',
+            type:'line',
+            smooth:true,
+            symbol: 'none',
+            sampling: 'average',
+            itemStyle: {
+                normal: {
+                    color: 'rgb(131, 175, 155)'
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(135,206,235)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(30,144,255)'
+                    }])
+                }
+            },
+            data: data_mall2
+        },
+        {
+            name:'五角场',
+            type:'line',
+            smooth:true,
+            symbol: 'none',
+            sampling: 'average',
+            itemStyle: {
+                normal: {
+                    color: 'rgb(255, 70, 131)'
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgb(255, 158, 68)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(255, 70, 131)'
+                    }])
+                }
+            },
+            data: data_mall3
+        }
+    ]
+};
+     for (var i = 1; i < 48; i++) {   //24小时一共48个点
+         var now = new Date(base);
+         dateInPic.push([now.getFullYear(), now.getMonth(), now.getDate(),now.get].join('/')+' '+[now.getHours(),now.getMinutes()].join(':'));
+         // dateInPic.push(base);
+         // data_mall1.push(Math.round((Math.random() - 0.5) * 20 + data_mall1[i - 1]));  
+         // data_mall2.push(Math.round((Math.random() - 0.5) * 20 + data_mall2[i - 1]));
+         // data_mall3.push(Math.round((Math.random() - 0.5) * 20 + data_mall3[i - 1]));
+         base += oneStep;
+     }
+     // 使用刚指定的配置项和数据显示图表
+     myChart.setOption(option);
+     $('#map4').css("background-color",'#fff');
+}
 
 var sodaData1;
-
+var MaxNumber;
 var peoples=[];
+var NumofPeo = [];
 function handle_sodaData(data){
      sodaData1 = data['people'];
      // console.log(data['people'])
      var people = data['people'];
-     for(var i=0;i<20;i++){
+     for(var i=0;i<BCnumber;i++){
           // console.log(people[i]['metro']);
-          peoples[i] = ((people[i]['metro']['in']+people[i]['metro']['out'])/2+people[i]['unicom']);
+          peoples[i] = (people[i]['metro']['in']+people[i]['metro']['out']+people[i]['unicom']+people[i]['taxi']['in']+people[i]['taxi']['out']);
      }
      $("#bcInfomation").empty();
-     for(var i=0;i<20;i++){
-          console.log(peoples[i]);
+     for(var i=0;i<BCnumber;i++){
          $("#bcInfomation").append("<h5>"+points1[i*5]['name']+":"+peoples[i]+"</h5>");
+     }
+     MaxNumber = Math.max.apply(null,peoples);
+
+     for(var i=0;i<BCnumber;i++){
+          points1[i*5]['count'] = peoples[i]/MaxNumber*mapHeatMax;
+          points1[i*5+1]['count'] = peoples[i]/MaxNumber*mapHeatMax*(1-Math.random());
+          points1[i*5+2]['count'] = peoples[i]/MaxNumber*mapHeatMax*(1-Math.random());
+          points1[i*5+3]['count'] = peoples[i]/MaxNumber*mapHeatMax*(1-Math.random());
+          points1[i*5+4]['count'] = peoples[i]/MaxNumber*mapHeatMax*(1-Math.random());
+     }
+     hasGetData = true;
+     var heatmapOverlay1 = new BMapLib.HeatmapOverlay({"radius":35,"gradient":{
+          '0.05': 'rgb(255,255,255)',
+          '0.2': 'rgb(0,255,0)', 
+          '0.5': 'rgb(255,255,00)',
+          '0.7': 'rgb(255,0,0)'
+     }});
+     map1.addOverlay(heatmapOverlay1);
+     heatmapOverlay1.setDataSet({data:points1,max:mapHeatMax});
+     // var marker = new BMap.Marker(new BMap.Point(121.479,31.239));
+     // marker.addEventListener("mouseover",attribute);
+     // map1.addOverlay(marker);
+
+     //添加mouseover事件
+     var opts = new Array(BCnumber);
+     // var infoWindow = new Array(20);
+     for(var i=0;i<BCnumber;i++){
+          opts[i]={title:'<span style="font-size:18px;color:#000">'+points1[i*5]['name']+'</span>'};
+          // infoWindow[i] = new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'>123</div>",opts[i]);
+     }
+
+     for(var i=0;i<BCnumber;i++){
+          (function(i){
+               var pt = new BMap.Point(points1[i*5]['lng'], points1[i*5]['lat']);
+               var myIcon = new BMap.Icon("http://localhost:3000/SodaFront/images/marker.png",new BMap.Size(16,16));
+               var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+               marker2.addEventListener("mouseover",function(){
+                    var content = "<div style='line-height:1.8em;font-size:12px;color:#000;'>"+"<span>地铁出站人流:"+sodaData1[i]['metro']['in']+"</span><br>"
+                    +"<span>地铁进站人流:"+sodaData1[i]['metro']['in']+"</span><br>"+"<span>联通信号人流:"+sodaData1[i]['unicom']+"</span>"+"</div>";
+
+                    var infoWindow = new BMap.InfoWindow(content,opts[i]);
+                    this.openInfoWindow(infoWindow);
+                    $('.BMap_pop div:nth-child(1) div').css('background-color','rgba(255,255,255,0.8');
+                    $('.BMap_pop div:nth-child(3) div').css('background-color','rgba(255,255,255,0.8');
+                    $('.BMap_pop div:nth-child(5) div').css('background-color','rgba(255,255,255,0.8');
+                    $('.BMap_pop div:nth-child(7) div').css('background-color','rgba(255,255,255,0.8');
+                    $('.BMap_pop div:nth-child(8) img').remove();
+               });
+               map1.addOverlay(marker2);
+          })(i);              // 将标注添加到地图中
      }
 }
 
+var currentscore = new Array(preBCnumber);
+var predictscore = new Array(preBCnumber);
+
+function getRank(score){
+     if(score>75.39 && score<=100){
+          return "相当拥挤";
+     }else if(score<=75.39 && score>56.85){
+          return "比较拥挤";
+     }else if(score>35.32 && score<=56.85){
+          return "一般";
+     }else if(score>0 && score<=35.32){
+          return "舒适";
+     }
+     return "参数出错了";
+}
+
+function trendCrowed(current,predict){
+     if(current<predict){
+          return "增加";
+     }else{
+          return "减少";
+     }
+}
+
+function handle_sodaScore(data){
+     for(var i=0;i<preBCnumber;i++){
+          currentscore[i] = data['current'][i]['score'];
+          predictscore[i] = data['predict'][i]['score'];
+     }
+
+     for(var i=0;i<preBCnumber;i++){}
+
+          //添加mouseover事件
+          var opts = new Array(preBCnumber);
+          // var infoWindow = new Array(20);
+          for(var i=0;i<preBCnumber;i++){
+               opts[i]={title:'<span style="font-size:18px;color:#000">'+points1[i*5]['name']+'</span>'};
+               // infoWindow[i] = new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'>123</div>",opts[i]);
+          }
+
+          for(var i=0;i<preBCnumber;i++){
+               (function(i){
+                    var pt = new BMap.Point(points1[i*5]['lng'], points1[i*5]['lat']);
+                    var myIcon = new BMap.Icon("http://localhost:3000/SodaFront/images/location.png",new BMap.Size(16,16));
+                    var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+                    marker2.addEventListener("mouseover",function(){
+                         var content = "<div style='line-height:1.8em;font-size:12px;color:#000;'>"+"<span>当前拥挤指数:"+currentscore[i]+"</span><br>"
+                    +"<span>当前拥挤等级:"+getRank(currentscore[i])+"</span><br>"+"<span>预测拥挤指数:"+predictscore[i]+"</span><br>"
+                    +"<span>预测拥挤指数:"+predictscore[i]+"</span><br>"
+                    +"<span>人流变化趋势:"+trendCrowed(currentscore[i],predictscore[i])+"</span><br>"+"</div>";
+
+                         var infoWindow = new BMap.InfoWindow(content,opts[i]);
+                         this.openInfoWindow(infoWindow);
+                         $('.BMap_pop div:nth-child(1) div').css('background-color','rgba(255,255,255,0.8');
+                         $('.BMap_pop div:nth-child(3) div').css('background-color','rgba(255,255,255,0.8');
+                         $('.BMap_pop div:nth-child(5) div').css('background-color','rgba(255,255,255,0.8');
+                         $('.BMap_pop div:nth-child(7) div').css('background-color','rgba(255,255,255,0.8');
+                         $('.BMap_pop div:nth-child(8) img').remove();
+                    });
+                    map2.addOverlay(marker2);
+               })(i);              // 将标注添加到地图中
+          }
+}
+
+function handle_sodaHistory(data){
+     data_mall1 = data[0]['history'];
+     data_mall2 = data[1]['history'];
+     data_mall3 = data[2]['history'];
+}
 

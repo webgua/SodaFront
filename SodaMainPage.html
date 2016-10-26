@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv="refresh" content="300">
 	<title>上海市商圈人流情况热力图</title>
 	<link rel="stylesheet" href="./stylesheets/style_main.css">
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ComGW1M9yzupXdYGVIDRhujI9eBNmXB7"></script>
 	<script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
 	<script type="text/javascript" src='./javascripts/jquery.min.js'></script>
 	<script type="text/javascript" src='./javascripts/infobox.js'></script>
+	<script type="text/javascript" src="./javascripts/d3.v3.min.js"></script>
+	<script src="./javascripts/echarts.common.min.js"></script>	
 </head>
 <body>
 	<div class="container">
@@ -23,7 +26,8 @@
 					<ul>
 						<li class="li_1"><a href="#" onclick="nav_click1()"><h2>实时人流监测</h2><h5>Real-time Crowds Monitor</h5></a></li>
 						<li class="li_2"><a href="#" onclick="nav_click2()"><h2>半小时人流预测</h2><h5>The Half-Hour Forecast</h5></a></li>
-						<li class="li_3"><a href="#" onclick="nav_click3()"><h2>人群增量数据</h2><h5>The Increment of Crowds</h5></a></li>
+						<li class="li_3" style="display:none"><a href="#" onclick="nav_click3()"><h2>人群增量数据</h2><h5>The Increment of Crowds</h5></a></li>
+						<li class="li_4"><a href="#" onclick="nav_click4()"><h2>商圈拥挤度走势</h2><h5>The Trend of Crowded Degree</h5></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -31,10 +35,12 @@
 			<div class="map_container" id="map1"></div>
 			<div class="map_container" id="map2"></div>
 			<div class="map_container" id="map3"></div>
+			<div class="map_container" id="map4"></div>
+
 			<div class="fengxi2"></div>
 			<div class="view_right">
 				<div class="s_title">
-					<h2>实时商圈信息</h2>
+					<h2>商圈人流信息</h2>
 				</div>
 				<section id="bcInfomation">
 				</section>
@@ -56,22 +62,28 @@
 	<script src="./javascripts/map_operator.js"></script>
 
 	<script type="text/javascript">
-		window.onload = function(){
-
-			var date = new Date();
-			var weekString = "";
-			switch(date.getDay()){
-				case 0: weekString +="星期日";break;
-				case 1: weekString +="星期一";break;
-				case 2: weekString +="星期二";break;
-				case 3: weekString +="星期三";break;
-				case 4: weekString +="星期四";break;
-				case 5: weekString +="星期五";break;
-				case 6: weekString +="星期六";break;
+		function formatNumber(day){
+			if(day>=1 && day<=9){
+				return "0"+day.toString();
+			}else{
+				return day.toString();
 			}
-			$('#time_container .clock').html(date.getHours().toString()+":"+date.getMinutes().toString());
-			$('#time_container .date').html(date.getUTCFullYear().toString()+'年'+(date.getUTCMonth()+1).toString()+'月'+date.getDate().toString()+'日'+"  "+weekString);
+		}
+		var date = new Date();
+		var weekString = "";
+		switch(date.getDay()){
+			case 0: weekString +="星期三";break;
+			case 1: weekString +="星期四";break;
+			case 2: weekString +="星期五";break;
+			case 3: weekString +="星期六";break;
+			case 4: weekString +="星期日";break;
+			case 5: weekString +="星期一";break;
+			case 6: weekString +="星期二";break;
+		}
+		$('#time_container .clock').html(date.getHours().toString()+":"+formatNumber(date.getMinutes()));
+		$('#time_container .date').html(date.getUTCFullYear().toString()+'年'+(date.getUTCMonth()-6).toString()+'月'+formatNumber(date.getDate())+'日'+"  "+weekString);
 
+		window.onload = function(){
 			$.ajax({
 				type:'GET',
 				// url:'http://192.168.1.25:3000/Soda/GetDataServlet',
@@ -83,18 +95,42 @@
 				success:function(data){
 					handle_sodaData(data);
 				}
-			})
+			});
+			$.ajax({
+				type:'GET',
+				// url:'http://192.168.1.25:3000/Soda/GetDataServlet',
+				url:'http://202.120.188.240:80/Soda/GetScoreServlet',
+				// url:'http://127.0.0.1:3000/Soda/GetScoreServlet',
+				error:function(){
+					alert('error!');
+				},
+				success:function(data){
+					handle_sodaScore(data);
+				}
+			});
+			$.ajax({
+				type:'GET',
+				// url:'http://192.168.1.25:3000/Soda/GetDataServlet',
+				url:'http://202.120.188.240:80/Soda/GetHistoryServlet',
+				// url:'http://127.0.0.1:3000/Soda/GetHistoryServlet',
+				error:function(){
+					alert('error!');
+				},
+				success:function(data){
+					handle_sodaHistory(data);
+				}
+			});
 		}
 	</script>
 	<style type="text/css">
 		.BMap_pop .BMap_top{
-        	background-color: rgba(0,0,0,0.5);
+        	background-color: rgba(255,255,255,0.8);
     	}
    		.BMap_pop .BMap_center{
-        	background-color: rgba(0,0,0,0.5);
+        	background-color: rgba(255,255,255,0.8);
     	}  
   		.BMap_pop .BMap_bottom{
-        	background-color: rgba(0,0,255,0.5);
+        	background-color: rgba(255,255,255,0.8);
     	}
     	.BMap_pop div:nth-child(1){  
         	border-radius:7px 0 0 0;  

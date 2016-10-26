@@ -10,6 +10,7 @@ body{
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
+	overflow: hidden;
 /*	background-color: black;
 */}
 /*delete baidumap logo*/
@@ -36,8 +37,8 @@ body{
 
 .container .main_container{
 	margin: 120px  auto  0 auto;
-	width: 80%;
-	height: 60%;
+	width: 85%;
+	height: 70%;
 	overflow: hidden;
 }
 
@@ -62,7 +63,7 @@ ul li{
 	float: left;
 	width: 2%;
 	margin-top: 20px;
-	height: 92%;
+	height: 94%;
 	background-color: #0E5E94;
 	transform: skewY(-55deg);
 }
@@ -86,7 +87,7 @@ ul li{
 	float: left;
 	width: 2%;
 	margin-top: 20px;
-	height: 92%;
+	height: 94%;
 	background-color: #0E5E94;
 	transform: skewY(55deg);
 }
@@ -95,7 +96,7 @@ ul li{
 	float: left;
 	width: 60%;
 	margin-bottom: 45px;
-	height: 92%;
+	height: 94%;
 	background-color: #abc;
 	display: block;
 }
@@ -106,11 +107,13 @@ ul li{
 
 #map2{
 	display: none;
-	/*visibility: hidden;*/
 }
 #map3{
 	display: none;
 	/*visibility: hidden;*/
+}
+#map4{
+	display: none;
 }
 .li_1{
 	background-color: #0E5E94;
@@ -143,27 +146,7 @@ ul li{
         font-weight: bold;  
         text-align:left;  
     }  
-    .BMap_pop div:nth-child(1){  
-        border-radius:7px 0 0 0;  
-    }  
-    .BMap_pop div:nth-child(3){  
-        border-radius:0 7px 0 0;background:#ABABAB;;  
-        /*background: #ABABAB;*/  
-        width:23px;  
-        width:0px;height;0px;  
-    }  
-    .BMap_pop div:nth-child(3) div{  
-        border-radius:7px;  
-    }  
-    .BMap_pop div:nth-child(5){  
-        border-radius:0 0 0 7px;  
-    }  
-    .BMap_pop div:nth-child(5) div{  
-        border-radius:7px;  
-    }  
-    .BMap_pop div:nth-child(7){  
-        border-radius:0 0 7px 0 ;  
-    }  
-    .BMap_pop div:nth-child div(7){  
-        border-radius:7px ;  
-    }
+
+ 
+      
+
