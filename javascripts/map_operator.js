@@ -514,7 +514,7 @@ function handle_sodaData(data){
      for(var i=0;i<BCnumber;i++){
           (function(i){
                var pt = new BMap.Point(points1[i*5]['lng'], points1[i*5]['lat']);
-               var myIcon = new BMap.Icon("http://localhost:3000/SodaFront/images/marker.png",new BMap.Size(16,16));
+               var myIcon = new BMap.Icon("http://202.120.188.240:80/SodaFront/images/marker.png",new BMap.Size(16,16));
                var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
                marker2.addEventListener("mouseover",function(){
                     var content = "<div style='line-height:1.8em;font-size:12px;color:#000;'>"+"<span>地铁出站人流:"+sodaData1[i]['metro']['in']+"</span><br>"
@@ -576,7 +576,7 @@ function handle_sodaScore(data){
           for(var i=0;i<preBCnumber;i++){
                (function(i){
                     var pt = new BMap.Point(points1[i*5]['lng'], points1[i*5]['lat']);
-                    var myIcon = new BMap.Icon("http://localhost:3000/SodaFront/images/location.png",new BMap.Size(16,16));
+                    var myIcon = new BMap.Icon("http://202.120.188.240:80/SodaFront/images/location.png",new BMap.Size(16,16));
                     var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
                     marker2.addEventListener("mouseover",function(){
                          var content = "<div style='line-height:1.8em;font-size:12px;color:#000;'>"+"<span>当前拥挤指数:"+currentscore[i]+"</span><br>"
