@@ -23,16 +23,20 @@
 		<div class="main_container">
 			<div class="view_left">
 				<div id="time_container">
-					<h3 class="clock"></h3>
 					<h3 class="date"></h3>
+					<h3 class="clock"></h3>
 				</div>
-				<div id="tp-weather-widget"></div>
+				<div id="weather">
+					<div id="tp-weather-widget"></div>
+					<div id="aqi"></div>
+					<div class="clear"></div>
+				</div>
 				<nav>
 					<ul>
 						<li class="li_1"><a href="#" onclick="nav_click1()"><h2>实时人流监测</h2><h5>Real-time Crowds Monitor</h5></a></li>
 						<li class="li_2"><a href="#" onclick="nav_click2()"><h2>半小时人流预测</h2><h5>The Half-Hour Forecast</h5></a></li>
 						<li class="li_3" style="display:none"><a href="#" onclick="nav_click3()"><h2>人群增量数据</h2><h5>The Increment of Crowds</h5></a></li>
-						<li class="li_4"><a href="#" onclick="nav_click4()"><h2>商圈拥挤度走势</h2><h5>The Trend of Crowded Degree</h5></a></li>
+						<li class="li_4"><a href="#" onclick="nav_click4()"><h2>商圈人流指数走势</h2><h5>The Trend of Crowded Degree</h5></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -43,12 +47,17 @@
 			<div class="map_container" id="map4"></div>
 
 			<div class="fengxi2"></div>
-			<div class="view_right">
+			<div class="view_right view_right1">
 				<div class="s_title">
 					<h2>商圈人流信息</h2>
 				</div>
-				<section id="bcInfomation">
-				</section>
+				<div id="bcInfomation">
+				</div>
+			</div>
+			<div class="view_right view_right2">
+				<div class="s_title">
+					<h2>人流指数说明</h2>
+				</div>
 			</div>
 		</div>
 		<div class="clear"></div>
@@ -125,21 +134,20 @@
 	</script>
 	<script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.thinkpage.cn/widget/chameleon.js"))</script>
 	<script>tpwidget("init", {
-	    "flavor": "slim",
-	    "location": "WTW37HNSSJ68",
-	    "geolocation": "enabled",
-	    "language": "zh-chs",
-	    "unit": "c",
-	    "theme": "chameleon",
-	    "container": "tp-weather-widget",
-	    "bubble": "enabled",
-	    "alarmType": "badge",
-	    "uid": "UD0A19FAA8",
-	    "hash": "ed217eb2ced819f4257c75fea8a89168"
+		    "flavor": "slim",
+		    "location": "WTW3SJ5ZBJUY",
+		    "geolocation": "disabled",
+		    "language": "zh-chs",
+		    "unit": "c",
+		    "theme": "chameleon",
+		    "container": "tp-weather-widget",
+		    "bubble": "enabled",
+		    "alarmType": "badge",
+		    "color": "#FFFFFF",
+		    "uid": "UD0A19FAA8",
+		    "hash": "36d59f00a6d0bf0b0a57c49a9c0827da"
 		});
 		tpwidget("show");
-		// $('.tpwthwidt .title_3ymFLpT').css("color","#fff");
-		// $('.tpwthwidt .text_3pc97PY').css("color","#fff");
 	</script>
 	<style type="text/css">
 		.BMap_pop .BMap_top{

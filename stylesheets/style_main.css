@@ -81,9 +81,10 @@ ul li{
 }
 .container .main_container .view_right .s_title{
 	color: #fff;
-	padding-top: 10px;
-	height: 60px;
+	padding: 20px 0 0 20px;
+	height: 8%;
 	background-color: #0E5E94;
+	overflow: hidden;
 }
 
 
@@ -141,8 +142,8 @@ ul li{
 
 .view_right #bcInfomation{
 	color: #fff;
+	height: 75%;
 }
-
 .anchorBL{  
         display:none;  
     }  
@@ -154,7 +155,36 @@ ul li{
     }  
 
  
-      
+
 #tp-weather-widget {
+	float: left;
+	height: 30px;
 	color: #fff;
+	/*margin: 0 auto 0 auto;*/
+	width: 60%;
+}
+#aqi{
+	padding-top: 5px;
+	height: 30px;
+	color: #fff;
+	width: 40%;
+	float: left;
+}
+.tpwthwidt .title_3ymFLpT{
+	color: #fff;
+}
+
+#time_container{
+	text-align: center;
+}
+#bcInfomation{
+	display: block;
+}
+.width5percent{
+	height: 5%;
+	overflow: hidden;
+}
+
+.view_right2{
+	display: hidden;
 }

@@ -286,6 +286,8 @@ function nav_click1(){
      $('#map3').css('display','none');
      $('#map4').css('display','none');
      $('#map1').css('display','block');
+     $('.view_right2').css('display','none');
+     $('.view_right1').css('display','block');
 }
 function nav_click2(){
      $('.li_2').css('background-color','#0E5E94');
@@ -309,6 +311,8 @@ function nav_click2(){
           map2.setMapStyle({styleJson:styleJson});
           nav2_first = false;
      }
+     $('.view_right1').css('display','none');
+     $('.view_right2').css('display','block');
 }
 function nav_click3(){
      $('.li_3').css('background-color','#0E5E94');
@@ -341,6 +345,8 @@ function nav_click4(){
      $('#map1').css('display','none');
      $('#map2').css('display','none');
      $('#map3').css('display','none');
+     $('.view_right1').css('display','none');
+     $('.view_right2').css('display','block');
      function toHalfHour(miniute){
           if(miniute>=30 && miniute<60){
                return 3;
@@ -453,7 +459,7 @@ option = {
 };
      for (var i = 1; i < 48; i++) {   //24小时一共48个点
          var now = new Date(base);
-         dateInPic.push([now.getFullYear(), now.getMonth(), now.getDate(),now.get].join('/')+' '+[now.getHours(),now.getMinutes()+'0'].join(':'));
+         dateInPic.push([now.getFullYear(), now.getMonth(), now.getDate(),now.get].join('/')+' '+[now.getHours(),toHalfHour(now.getMinutes())+'0'].join(':'));
          // dateInPic.push(base);
          // data_mall1.push(Math.round((Math.random() - 0.5) * 20 + data_mall1[i - 1]));  
          // data_mall2.push(Math.round((Math.random() - 0.5) * 20 + data_mall2[i - 1]));
@@ -469,17 +475,19 @@ var sodaData1;
 var MaxNumber;
 var peoples=[];
 var NumofPeo = [];
+var aqi = 0;
 function handle_sodaData(data){
      sodaData1 = data['people'];
      // console.log(data['people'])
      var people = data['people'];
+     aqi = data['aqi'];
      for(var i=0;i<BCnumber;i++){
           // console.log(people[i]['metro']);
           peoples[i] = (people[i]['metro']['in']+people[i]['metro']['out']+people[i]['unicom']+people[i]['taxi']['in']+people[i]['taxi']['out']);
      }
      $("#bcInfomation").empty();
      for(var i=0;i<BCnumber;i++){
-         $("#bcInfomation").append("<h5>"+points1[i*5]['name']+":"+peoples[i]+"</h5>");
+         $("#bcInfomation").append("<div class='width5percent'>"+points1[i*5]['name']+":"+peoples[i]+"</div>");
      }
      MaxNumber = Math.max.apply(null,peoples);
 
@@ -518,7 +526,7 @@ function handle_sodaData(data){
                var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
                marker2.addEventListener("mouseover",function(){
                     var content = "<div style='line-height:1.8em;font-size:12px;color:#000;'>"+"<span>地铁出站人流:"+sodaData1[i]['metro']['in']+"</span><br>"
-                    +"<span>地铁进站人流:"+sodaData1[i]['metro']['in']+"</span><br>"+"<span>联通信号人流:"+sodaData1[i]['unicom']+"</span>"+"</div>";
+                    +"<span>地铁进站人流:"+sodaData1[i]['metro']['out']+"</span><br>"+"<span>联通信号人流:"+sodaData1[i]['unicom']+"</span>"+"</div>";
 
                     var infoWindow = new BMap.InfoWindow(content,opts[i]);
                     this.openInfoWindow(infoWindow);
@@ -531,13 +539,18 @@ function handle_sodaData(data){
                map1.addOverlay(marker2);
           })(i);              // 将标注添加到地图中
      }
+    $('#aqi').html("<span style='font-size:18px;'>aqi:"+aqi+"</span>");
+
 }
 
 var currentscore = new Array(preBCnumber);
 var predictscore = new Array(preBCnumber);
 
 function getRank(score){
-     if(score>75.39 && score<=100){
+     if(score>95 && score<=100){
+          return "预警";
+     }
+     if(score>75.39 && score<=95){
           return "相当拥挤";
      }else if(score<=75.39 && score>56.85){
           return "比较拥挤";
@@ -579,9 +592,9 @@ function handle_sodaScore(data){
                     var myIcon = new BMap.Icon("http://202.120.188.240:80/SodaFront/images/location.png",new BMap.Size(16,16));
                     var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
                     marker2.addEventListener("mouseover",function(){
-                         var content = "<div style='line-height:1.8em;font-size:12px;color:#000;'>"+"<span>当前拥挤指数:"+currentscore[i]+"</span><br>"
+                         var content = "<div style='line-height:1.8em;font-size:12px;color:#000;'>"+"<span>当前人流指数:"+currentscore[i]+"</span><br>"
                     +"<span>当前拥挤等级:"+getRank(currentscore[i])+"</span><br>"
-                    +"<span>预测拥挤指数:"+predictscore[i]+"</span><br>"
+                    +"<span>预测人流指数:"+predictscore[i]+"</span><br>"
                     +"<span>人流变化趋势:"+trendCrowed(currentscore[i],predictscore[i])+"</span><br>"+"</div>";
 
                          var infoWindow = new BMap.InfoWindow(content,opts[i]);
