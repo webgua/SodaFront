@@ -367,7 +367,11 @@ option = {
     },
     title: {
         left: 'center',
-        text: '商圈拥挤指数',
+        text: '商圈人流指数',
+        textStyle:{
+          fontSize:32,
+          color:'#333'
+        }
     },
     legend: {
         top: 'bottom',
