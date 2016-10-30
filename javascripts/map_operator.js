@@ -354,7 +354,7 @@ function nav_click4(){
           return 0;
      }
      var myChart = echarts.init(document.getElementById('map4'));
-     var base = +new Date(2016, 3, date.getDate(), date.getHours(), toHalfHour(date.getMinutes()), 0);  //2016-03-02 00:00:00
+     var base = +new Date(2016, 3, date.getDate()-1, date.getHours(), toHalfHour(date.getMinutes()), 0);  //2016-03-02 00:00:00
      var oneStep= 1800 * 1000;  //半小时
      var dateInPic = [];
 
