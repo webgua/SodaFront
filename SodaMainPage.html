@@ -88,7 +88,7 @@
 				return day.toString();
 			}
 		}
-		var date = new Date();
+		var date = new Date((new Date().getTime())-213*(24*3600*1000)) ;
 		var weekString = "";
 		switch(date.getDay()){
 			case 0: weekString +="星期三";break;
@@ -100,7 +100,7 @@
 			case 6: weekString +="星期二";break;
 		}
 		$('#time_container .clock').html(date.getHours().toString()+":"+formatNumber(date.getMinutes()));
-		$('#time_container .date').html(date.getUTCFullYear().toString()+'年'+(date.getUTCMonth()-6).toString()+'月'+formatNumber(date.getDate())+'日'+"  "+weekString);
+		$('#time_container .date').html(date.getUTCFullYear().toString()+'年'+(date.getUTCMonth()).toString()+'月'+formatNumber(date.getDate())+'日'+"  "+weekString);
 
 		window.onload = function(){
 			$.ajax({
