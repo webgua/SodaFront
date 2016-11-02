@@ -17,7 +17,7 @@
 		<header>
 			<div class="title">
 				<h1>上海市各大商圈人流量预警系统</h1>
-				<h3> &nbsp The EWS of Crowds in Bussiness Areas of ShangHai</h3>
+				<h3> &nbsp The EWS of Crowds in Bussiness Areas of Shanghai</h3>
 			</div>
 		</header>
 		<div class="main_container">
@@ -88,16 +88,16 @@
 				return day.toString();
 			}
 		}
-		var date = new Date((new Date().getTime())-213*(24*3600*1000)) ;
+		var date = new Date((new Date().getTime())-214*(24*3600*1000)) ;
 		var weekString = "";
 		switch(date.getDay()){
-			case 0: weekString +="星期三";break;
-			case 1: weekString +="星期四";break;
-			case 2: weekString +="星期五";break;
-			case 3: weekString +="星期六";break;
-			case 4: weekString +="星期日";break;
-			case 5: weekString +="星期一";break;
-			case 6: weekString +="星期二";break;
+			case 6: weekString +="星期三";break;
+			case 0: weekString +="星期四";break;
+			case 1: weekString +="星期五";break;
+			case 2: weekString +="星期六";break;
+			case 3: weekString +="星期日";break;
+			case 4: weekString +="星期一";break;
+			case 5: weekString +="星期二";break;
 		}
 		$('#time_container .clock').html(date.getHours().toString()+":"+formatNumber(date.getMinutes()));
 		$('#time_container .date').html(date.getUTCFullYear().toString()+'年'+(date.getUTCMonth()).toString()+'月'+formatNumber(date.getDate())+'日'+"  "+weekString);
@@ -139,6 +139,7 @@
 					handle_sodaHistory(data);
 				}
 			});
+
 		}
 	</script>
 	<script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.thinkpage.cn/widget/chameleon.js"))</script>

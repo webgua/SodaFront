@@ -480,6 +480,17 @@ var MaxNumber;
 var peoples=[];
 var NumofPeo = [];
 var aqi = 0;
+
+function showPeoples(){
+     $("#bcInfomation").empty();
+     for(var i=0;i<BCnumber;i++){
+          var nums = peoples[i]+parseInt(Math.random()*10);
+          console.log(i+":"+nums);
+          $("#bcInfomation").append("<div class='width5percent'>"+points1[i*5]['name']+":"+"<span>"+nums+"</span>"+"</div>");
+     }
+     setTimeout('showPeoples()',3000);
+}
+
 function handle_sodaData(data){
      sodaData1 = data['people'];
      // console.log(data['people'])
@@ -489,10 +500,11 @@ function handle_sodaData(data){
           // console.log(people[i]['metro']);
           peoples[i] = (people[i]['metro']['in']+people[i]['metro']['out']+people[i]['unicom']+people[i]['taxi']['in']+people[i]['taxi']['out']);
      }
-     $("#bcInfomation").empty();
-     for(var i=0;i<BCnumber;i++){
-         $("#bcInfomation").append("<div class='width5percent'>"+points1[i*5]['name']+":"+peoples[i]+"</div>");
-     }
+     showPeoples();
+     // $("#bcInfomation").empty();
+     // for(var i=0;i<BCnumber;i++){
+     //      $("#bcInfomation").append("<div class='width5percent'>"+points1[i*5]['name']+":"+"<span>"+peoples[i]+"</span>"+"</div>");
+     // }
      MaxNumber = Math.max.apply(null,peoples);
 
      for(var i=0;i<BCnumber;i++){
@@ -530,7 +542,10 @@ function handle_sodaData(data){
                var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
                marker2.addEventListener("mouseover",function(){
                     var content = "<div style='line-height:1.8em;font-size:12px;color:#000;'>"+"<span>地铁出站人流:"+sodaData1[i]['metro']['in']+"</span><br>"
-                    +"<span>地铁进站人流:"+sodaData1[i]['metro']['out']+"</span><br>"+"<span>联通信号人流:"+sodaData1[i]['unicom']+"</span>"+"</div>";
+                    +"<span>地铁进站人流:"+sodaData1[i]['metro']['out']+"</span><br>"
+                    +"<span>联通信号人流:"+sodaData1[i]['unicom']+"</span><br>"
+                    +"<span>强生出租空车数:"+sodaData1[i]['taxi']['out']+"</span><br>"
+                    +"<span>强生出租重车数:"+sodaData1[i]['taxi']['in']+"</span>"+"</div>";
 
                     var infoWindow = new BMap.InfoWindow(content,opts[i]);
                     this.openInfoWindow(infoWindow);
@@ -566,6 +581,22 @@ function getRank(score){
      return "参数出错了";
 }
 
+function getColorRank(score){
+     if(score>95 && score<=100){
+          return "#FF0000";
+     }
+     if(score>75.39 && score<=95){
+          return "#FFA042";
+     }else if(score<=75.39 && score>56.85){
+          return "#FFFF37";
+     }else if(score>35.32 && score<=56.85){
+          return "#FFF";
+     }else if(score>0 && score<=35.32){
+          return "#B7FF4A";
+     }
+     return "#000";
+}
+
 function trendCrowed(current,predict){
      if(current<predict){
           return "增加";
@@ -596,10 +627,11 @@ function handle_sodaScore(data){
                     var myIcon = new BMap.Icon("http://202.120.188.240:80/SodaFront/images/location.png",new BMap.Size(16,16));
                     var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
                     marker2.addEventListener("mouseover",function(){
-                         var content = "<div style='line-height:1.8em;font-size:12px;color:#000;'>"+"<span>当前人流指数:"+currentscore[i]+"</span><br>"
+                         var content = "<div style='line-height:1.8em;font-size:12px;color:#000;'>"+"<span style='color:"+getColorRank(currentscore[i])+"'>当前人流指数:"+currentscore[i]+"</span><br>"
                     +"<span>当前拥挤等级:"+getRank(currentscore[i])+"</span><br>"
                     +"<span>预测人流指数:"+predictscore[i]+"</span><br>"
                     +"<span>人流变化趋势:"+trendCrowed(currentscore[i],predictscore[i])+"</span><br>"+"</div>";
+
 
                          var infoWindow = new BMap.InfoWindow(content,opts[i]);
                          this.openInfoWindow(infoWindow);
