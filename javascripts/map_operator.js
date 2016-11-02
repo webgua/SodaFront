@@ -511,7 +511,7 @@ function showPeoples(){
      $("#bcInfomation").empty();
      for(var i=0;i<BCnumber;i++){
           var nums = peoples[i]+parseInt(Math.random()*10);
-          console.log(i+":"+nums);
+          // console.log(i+":"+nums);
           $("#bcInfomation").append("<div class='width5percent'>"+points1[i*5]['name']+":"+"<span>"+nums+"</span>"+"</div>");
      }
      setTimeout('showPeoples()',3000);
@@ -683,8 +683,10 @@ function handle_sodaHistory(data){
 
 function drawPictures(){
           var m = [ 20 , 20 , 30 , 20 ],
-               w = 960 - m[1] - m[3],
-               h = 700 - m[0] - m[2];
+               w = $("#map5").width() - m[1] - m[3],
+               h = $("#map5").height() - m[0] - m[2];
+
+          console.log(w);
 
           var x,
           y,
@@ -780,7 +782,6 @@ function drawPictures(){
                }
 
                var k = 1, n = symbols[0].values.length;
-               console.log(n);
                d3.timer(function() {
                draw(k);
                if ((k += 2) >= n - 1) {
