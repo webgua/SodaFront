@@ -120,6 +120,14 @@ ul li{
 #map4{
 	display: none;
 }
+#map5{
+	display: none;
+	background-color: #fff;
+}
+#map5 svg{
+	height: 100%;
+	width: 100%;
+}
 .li_1{
 	background-color: #0E5E94;
 }
