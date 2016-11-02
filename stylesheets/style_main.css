@@ -122,11 +122,17 @@ ul li{
 }
 #map5{
 	display: none;
-	background-color: #fff;
 }
 #map5 svg{
 	height: 100%;
 	width: 100%;
+	background-color: #fff;
+	font-family: "Helvetica Neue", Helvetica;
+}
+.line {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
 }
 .li_1{
 	background-color: #0E5E94;
