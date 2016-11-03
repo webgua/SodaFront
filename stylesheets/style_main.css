@@ -16,6 +16,23 @@ body{
 /*delete baidumap logo*/
 .anchorBL{display:none;}
 
+@media screen and (max-width: 1300px){
+	h1 {
+		font-size: 1.34em;
+	}
+	h2 {
+		font-size: 1em;
+	}
+	h3{
+		font-size: 0.784em;
+	}
+	h5{
+		font-size: 0.56em;
+	}
+	.width5percent{
+		font-size: 0.5em;
+	}
+}
 .container{
 	width: 100%;
 	height: 100%;
@@ -33,6 +50,17 @@ body{
 .container header .title{
 	color: #FFF;
 	margin:5px 0 0  20px;
+	width: 70%;
+	float: left;
+}
+.container header .zimu{
+	color: #FFF;
+	margin:25px 0 0  20px;
+	width: 20%;
+	float: right;
+}
+.container header .zimu marquee{
+	margin:0;
 }
 
 .container .main_container{

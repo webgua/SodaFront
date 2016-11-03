@@ -303,8 +303,15 @@ function nav_click2(){
      $('#map4').css('display','none');
      $('#map5').css('display','none');
      $('#map2').css('display','block');
+     var circle1 = new BMap.Circle(new BMap.Point(points1[0]['lng'], points1[0]['lat']),800,{strokeColor:"#FFFF37" ,fillColor:"", strokeWeight: 2 ,fillOpacity: 0, strokeOpacity: 1, setTop:true});//设置覆盖物的参数，中心坐标，半径，颜色
+     var circle2 = new BMap.Circle(new BMap.Point(points1[5]['lng'], points1[5]['lat']),800,{strokeColor:"#FFFF37" ,fillColor:"", strokeWeight: 2 ,fillOpacity: 0, strokeOpacity: 1, setTop:true});//设置覆盖物的参数，中心坐标，半径，颜色
+     var circle3 = new BMap.Circle(new BMap.Point(points1[10]['lng'], points1[10]['lat']),800,{strokeColor:"#FFFF37" ,fillColor:"", strokeWeight: 2 ,fillOpacity: 0, strokeOpacity: 1, setTop:true});//设置覆盖物的参数，中心坐标，半径，颜色
+     map2.addOverlay(circle1);
+     map2.addOverlay(circle2);
+     map2.addOverlay(circle3);
+
      if(hasGetData){
-          console.log(map2.getOverlays());
+          // console.log(map2.getOverlays());
           var heatmapOverlay2 = new BMapLib.HeatmapOverlay({"radius":35,"gradient":{
                '0.05': 'rgb(255,255,255)',
                '0.2': 'rgb(0,255,0)', 
@@ -671,6 +678,7 @@ function handle_sodaScore(data){
                          $('.BMap_pop div:nth-child(8) img').remove();
                     });
                     map2.addOverlay(marker2);
+                    
                })(i);              // 将标注添加到地图中
           }
 }
