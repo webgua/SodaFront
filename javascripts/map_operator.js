@@ -370,7 +370,7 @@ function nav_click4(){
           return 0;
      }
      var myChart = echarts.init(document.getElementById('map4'));
-     var base = +new Date(2016, 3, date.getDate()-1, date.getHours(), toHalfHour(date.getMinutes()), 0);  //2016-03-02 00:00:00
+     var base = +new Date(2016, 3, date.getDate()-1, date.getHours()+1, toHalfHour(date.getMinutes()), 0);  //2016-03-02 00:00:00
      var oneStep= 1800 * 1000;  //半小时
      var dateInPic = [];
 
@@ -477,7 +477,7 @@ option = {
         }
     ]
 };
-     for (var i = 1; i < 48; i++) {   //24小时一共48个点
+     for (var i = 0; i < 48; i++) {   //24小时一共48个点
          var now = new Date(base);
          dateInPic.push([now.getFullYear(), now.getMonth(), now.getDate(),now.get].join('/')+' '+[now.getHours(),toHalfHour(now.getMinutes())+'0'].join(':'));
          // dateInPic.push(base);
