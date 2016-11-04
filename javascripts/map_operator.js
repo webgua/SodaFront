@@ -270,6 +270,7 @@ var map2 = new BMap.Map("map2",{enableMapClick:false});
 var point2 = new BMap.Point(121.479,31.249);
 map2.centerAndZoom(point2,13);
 map2.disableScrollWheelZoom();
+map2.disableDoubleClickZoom();
 map2.enableDragging();
 $('#map2').css('display','none');
 
@@ -303,7 +304,7 @@ function nav_click2(){
      $('#map4').css('display','none');
      $('#map5').css('display','none');
      $('#map2').css('display','block');
-     var circle1 = new BMap.Circle(new BMap.Point(points1[0]['lng'], points1[0]['lat']),800,{strokeColor:"#FFFF37" ,fillColor:"", strokeWeight: 2 ,fillOpacity: 0, strokeOpacity: 1, setTop:true});//设置覆盖物的参数，中心坐标，半径，颜色
+     var circle1 = new BMap.Circle(new BMap.Point(points1[0]['lng'], points1[0]['lat']),1100,{strokeColor:"#FFFF37" ,fillColor:"", strokeWeight: 2 ,fillOpacity: 0, strokeOpacity: 1, setTop:true});//设置覆盖物的参数，中心坐标，半径，颜色
      var circle2 = new BMap.Circle(new BMap.Point(points1[5]['lng'], points1[5]['lat']),800,{strokeColor:"#FFFF37" ,fillColor:"", strokeWeight: 2 ,fillOpacity: 0, strokeOpacity: 1, setTop:true});//设置覆盖物的参数，中心坐标，半径，颜色
      var circle3 = new BMap.Circle(new BMap.Point(points1[10]['lng'], points1[10]['lat']),800,{strokeColor:"#FFFF37" ,fillColor:"", strokeWeight: 2 ,fillOpacity: 0, strokeOpacity: 1, setTop:true});//设置覆盖物的参数，中心坐标，半径，颜色
      map2.addOverlay(circle1);
@@ -385,7 +386,7 @@ option = {
         left: 'center',
         text: '商圈人流指数',
         textStyle:{
-          fontSize:32,
+          fontSize:28,
           color:'#333'
         }
     },
